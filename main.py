@@ -46,6 +46,7 @@ class OAuthHandler(webapp2.RequestHandler):
 
         json_result = json.loads(result.content)
 
+		#create variables to check if they exist.
         exist_fname = False
         exist_lname = False
         exist_gplink = False
