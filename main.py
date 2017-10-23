@@ -28,11 +28,12 @@ class OAuthHandler(webapp2.RequestHandler):
             'grant_type': 'authorization_code'
             }
 
-        payload = urllib.urlencode(post_body)
+		#encode data for the payload
+        pload = urllib.urlencode(post_body)
         headers = {'Content-Type':'application/x-www-form-urlencoded'}
         result = urlfetch.fetch(
             url="https://www.googleapis.com/oauth2/v4/token",
-   		 	payload = payload,
+   		 	payload = pload,
     		method = urlfetch.POST,
     		headers = headers)
 
@@ -71,7 +72,7 @@ class OAuthHandler(webapp2.RequestHandler):
                                'gplink_name': "Visit Profile",
                                'state': state}
         else:
-            template_values = {'noAccount': "NOTE: No Google+ account found", 'state': state}
+            template_values = {'noAccount': "There is no Google+ account for this user", 'state': state}
 
         path = os.path.join(os.path.dirname(__file__), 'templates/oauth.html')
         self.response.out.write(template.render(path, template_values))
@@ -92,7 +93,7 @@ class MainPage(webapp2.RequestHandler):
         url = url + rand_string
         url = url + "&redirect_uri=" + REDIRECT_URI
         url = url + "&response_type=code"
-        url = url + "&client_id=913425740949-0c0i284ks9elrosgpv5rdh2qvsal8cim.apps.googleusercontent.com"
+        url = url + "&client_id=362935595119-o0grnh36hbunrrfvakuh0duoi8clpv47.apps.googleusercontent.com"
 
         template_values = {'url': url}
 
